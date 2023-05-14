@@ -1,6 +1,22 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 </script>
+const prevButton = document.querySelector(".prev-button");
+const nextButton = document.querySelector(".next-button");
+const images = document.querySelector(".carousel-images");
+
+let currentIndex = 0;
+
+prevButton.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + images.children.length) % images.children.length;
+  images.style.transform = `translateX(-${currentIndex * 100}%)`;
+});
+
+nextButton.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % images.children.length;
+  images.style.transform = `translateX(-${currentIndex * 100}%)`;
+});
+
 
 <template>
   <header>
@@ -39,6 +55,19 @@ import HelloWorld from './components/HelloWorld.vue'
         <div class="social-media"></div>
     </footer>
   <HelloWorld msg="Vite + Vue" />
+<div class="carousel-container">
+  <div class="carousel-images">
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image2.jpg" alt="Image 2">
+    <img src="image3.jpg" alt="Image 3">
+  </div>
+  <div class="carousel-controls">
+    <button class="prev-button">Prev</button>
+    <button class="next-button">Next</button>
+  </div>
+</div>
+
+
 </template>
 
 <style scope>
@@ -89,4 +118,46 @@ height: 331px;
 left: 222px;
 top: 205px;
 }
+.carousel-container {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  overflow: hidden;
+}
+
+.carousel-images {
+  position: absolute;
+  display: flex;
+  width: 300%;
+  animation: slide 10s infinite;
+}
+
+.carousel-images img {
+  width: 33.33%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.prev-button,
+.next-button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  background-color: #ccc;
+  color: #fff;
+  cursor: pointer;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  background-color: #555;
+}
+
 </style>
