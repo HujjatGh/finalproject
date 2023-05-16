@@ -97,7 +97,7 @@ left: 12px;
 top: 20px;
 }
 
-.navigation-pans {
+.navigation-pans ul {
   list-style: none; 
   display: flex; 
   justify-content: space-between;
