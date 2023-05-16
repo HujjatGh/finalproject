@@ -1,26 +1,21 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script >
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
+export default {
+  components: { VueDatePicker },
+  data() {
+    return {
+      date: null,
+    };
+  }
+}
 </script>
-const prevButton = document.querySelector(".prev-button");
-const nextButton = document.querySelector(".next-button");
-const images = document.querySelector(".carousel-images");
-
-let currentIndex = 0;
-
-prevButton.addEventListener("click", () => {
-  currentIndex = (currentIndex - 1 + images.children.length) % images.children.length;
-  images.style.transform = `translateX(-${currentIndex * 100}%)`;
-});
-
-nextButton.addEventListener("click", () => {
-  currentIndex = (currentIndex + 1) % images.children.length;
-  images.style.transform = `translateX(-${currentIndex * 100}%)`;
-});
-
 
 <template>
   <header>
         <button id="appointment">SCHEDULE AN APPOINTMENT</button>
+        <VueDatePicker v-model="date">Pick a Date</VueDatePicker>
         <nav class="navigation-bar"></nav>
             <div class="container">
             <img class="logo" src="https://media.istockphoto.com/id/1428043564/es/foto/icono-de-diente.jpg?s=612x612&w=0&k=20&c=Ku068NArjnoxQ43xjE3ESUIOAvOQCN_h8uWihplM4VM=" alt="Carl's Dental Clinic">
@@ -61,6 +56,7 @@ nextButton.addEventListener("click", () => {
     <img src="image2.jpg" alt="Image 2">
     <img src="image3.jpg" alt="Image 3">
   </div>
+  
   <div class="carousel-controls">
     <button class="prev-button">Prev</button>
     <button class="next-button">Next</button>
