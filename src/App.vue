@@ -116,14 +116,38 @@ export default {
     <div class="image-container">
       <img :src="currentImage" alt="Carousel Image">
     </div>
-    <button class="arrow right" @click="navigate('right')">&#8250;</button>
   </div>
 
 
-    <footer>
-        <p>Address: </p>
-        <div class="social-media"></div>
-    </footer>
+  <footer class="footer">
+  <div class="container">
+    <div class="footer-social">
+      <a href="#" class="social-icon">
+        <img class="icon-size" src="https://www.svgrepo.com/show/419926/facebook-fb-social-icon.svg" alt="Facebook">
+      </a>
+      <a href="#" class="social-icon">
+        <img class= "icon-size" src="" alt="Twitter">
+      </a>
+      <a href="#" class="social-icon">
+        <img class="icon-size" src="https://www.svgrepo.com/show/353905/instagram-icon.svg" alt="Instagram">
+      </a>
+      <a href="#" class="social-icon">
+        <img class="icon-size" src="" alt="LinkedIn">
+      </a>
+      <a href="#" class="social-icon">
+        <img class="icon-size" src="" alt="YouTube">
+      </a>
+    </div>
+    <div class="footer-contact">
+      <p>Contact us: <a href="tel:+1234567890">(123) 456-7890</a></p>
+      <p>Email: <a href="mailto:info@example.com">carldental@gmail.com</a></p>
+    </div>
+    <div class="footer-location">
+      <p>123 Main Street, City, State, ZIP</p>
+    </div>
+  </div>
+</footer>
+
 
 
 </template>
@@ -242,4 +266,55 @@ top: 205px;
   max-width: 100%;
   height: auto;
 }
+
+.footer {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-social {
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+  max-width: 10px;
+  max-height: 10px;
+}
+
+.social-icon {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 20px;
+  font-size: 30px;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+}
+
+.footer-contact p,
+.footer-location p {
+  margin-bottom: 10px;
+}
+
+.footer-contact a {
+  color: #000;
+  text-decoration: none;
+}
+
+.footer-location {
+  font-style: italic;
+}
+
+.icon-size {
+  width: 50px;
+  height: 50px;
+  
+}
+
 </style>
