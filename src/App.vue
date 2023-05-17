@@ -2,20 +2,85 @@
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
+
+
+// export default {
+//   components: { VueDatePicker },
+//   data() {
+//     return {
+//       date: null,
+//     };
+//   }
+// }
+
+
+
 export default {
   components: { VueDatePicker },
   data() {
     return {
-      date: null,
+      images: [
+        'https://media.istockphoto.com/id/1035417946/photo/female-dentist-talking-to-her-patient-at-dentists-office.jpg?b=1&s=170667a&w=0&k=20&c=neY8fxhlFAQxrfb5EGdojadDla8K11wZMty72D9EY7I=',
+        'https://media.istockphoto.com/id/1426680238/photo/smiling-woman-holding-an-invisible-teeth-aligner.jpg?b=1&s=170667a&w=0&k=20&c=5tQsjUD_ECHzVBLXfzC0ZnniXGwztpGUcczUZI0NSuE=',
+        'https://media.istockphoto.com/id/1404168630/photo/senior-man-looking-the-teeth-in-mirror-at-dentist.jpg?b=1&s=170667a&w=0&k=20&c=vUq_GAZMbFpung85b2fAY9ovt0P2hhtSrlzP9_rv8qE=',
+        
+      ],
+      currentIndex: 0,
+      timer: null
     };
+  },
+  computed: {
+    currentImage() {
+      return this.images[this.currentIndex];
+    }
+  },
+  mounted() {
+    this.startTimer();
+  },
+  beforeDestroy() {
+    this.stopTimer();
+  },
+  methods: {
+    handleKeyPress(event) {
+      if (event.keyCode === 37) {
+        // Left arrow key pressed
+        this.navigate('left');
+      } else if (event.keyCode === 39) {
+        // Right arrow key pressed
+        this.navigate('right');
+      }
+    },
+    navigate(direction) {
+      if (direction === 'left') {
+        this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+      } else if (direction === 'right') {
+        this.currentIndex = (this.currentIndex + 1) % this.images.length;
+      }
+      this.resetTimer();
+    },
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.navigate('right');
+      }, 3000); // 3 seconds
+    },
+    stopTimer() {
+      clearInterval(this.timer);
+      this.timer = null;
+    },
+    resetTimer() {
+      this.stopTimer();
+      this.startTimer();
+    }
   }
-}
+};
+
+
 </script>
 
 <template>
   <header>
-        <button id="appointment">SCHEDULE AN APPOINTMENT</button>
-        <VueDatePicker v-model="date">Pick a Date</VueDatePicker>
+        <button id="appointment" type="submit">SCHEDULE AN APPOINTMENT</button>
+        <VueDatePicker placeholder = "Schedule a FREE first visit" v-model="date">Pick a Date</VueDatePicker>
         <nav class="navigation-bar"></nav>
             <div class="container">
             <img class="logo" src="https://media.istockphoto.com/id/1428043564/es/foto/icono-de-diente.jpg?s=612x612&w=0&k=20&c=Ku068NArjnoxQ43xjE3ESUIOAvOQCN_h8uWihplM4VM=" alt="Carl's Dental Clinic">
@@ -45,23 +110,20 @@ export default {
 
     <div class="special-offers">
     </div>
+
+  
+  <div class="carousel" tabindex="0" @keydown="handleKeyPress">
+    <div class="image-container">
+      <img :src="currentImage" alt="Carousel Image">
+    </div>
+    <button class="arrow right" @click="navigate('right')">&#8250;</button>
+  </div>
+
+
     <footer>
         <p>Address: </p>
         <div class="social-media"></div>
     </footer>
-  <HelloWorld msg="Vite + Vue" />
-<div class="carousel-container">
-  <div class="carousel-images">
-    <img src="image1.jpg" alt="Image 1">
-    <img src="image2.jpg" alt="Image 2">
-    <img src="image3.jpg" alt="Image 3">
-  </div>
-  
-  <div class="carousel-controls">
-    <button class="prev-button">Prev</button>
-    <button class="next-button">Next</button>
-  </div>
-</div>
 
 
 </template>
@@ -156,4 +218,28 @@ top: 205px;
   background-color: #555;
 }
 
+.carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.image-container {
+  margin: 0 10px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
 </style>
